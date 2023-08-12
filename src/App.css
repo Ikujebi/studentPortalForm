@@ -11,3 +11,13 @@
 .App{
     margin: 30px;
 }
+
+.block{
+    display: block;
+    
+}
+
+.display{
+    display: flex;
+    flex-direction: row;
+}

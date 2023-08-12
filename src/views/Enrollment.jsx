@@ -139,7 +139,7 @@ function Enrollment() {
       {steps[currentStep].content}
       <div style={{ marginTop: 24 }}>
         {currentStep < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
+          <Button type="primary" onClick={handleNextClick}>
             Next
           </Button>
         )}
@@ -149,7 +149,7 @@ function Enrollment() {
           </Button>
         )}
         {currentStep > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+          <Button style={{ margin: '0 8px' }} onClick={() => setCurrentStep(currentStep - 1)}>
             Previous
           </Button>
         )}

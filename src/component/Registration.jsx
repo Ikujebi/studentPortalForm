@@ -94,7 +94,7 @@ function RegistrationForm() {
             },
           ]}
         >
-          <Input onChange={handleChange} value={formData.firstName} />
+          <Input type="text" onChange={handleChange} value={formData.firstName} />
         </Form.Item>
         <Form.Item
           label="Last Name"
@@ -107,7 +107,7 @@ function RegistrationForm() {
           ]}
         >
           <Input
-            className="blo"
+            type="text"
             onChange={handleChange}
             value={formData.lastName}
           />

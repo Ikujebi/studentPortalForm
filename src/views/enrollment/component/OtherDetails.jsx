@@ -6,7 +6,7 @@ function OtherDetails({state,setState}) {
      
    
   return (
-    <Row gutter={16}>
+    <Row gutter={16} className="md:w-[70%]">
       
         
         

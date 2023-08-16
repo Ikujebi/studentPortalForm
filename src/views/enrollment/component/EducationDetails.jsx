@@ -4,7 +4,7 @@ import useSetField from "../../../custom-hooks/UseSetField";
 function EducationDetails({state,setState}) {
   const { setRequest } = useSetField(setState);
   return (
-    <Row gutter={16} >
+    <Row gutter={16} className="md:w-[70%]">
       <Col xs={24} md={12}>
       <Form.Item
           className="input"

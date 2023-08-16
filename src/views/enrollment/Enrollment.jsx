@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Form, Button, Steps } from "antd";
+import { Form, Button, Steps,message } from "antd";
 import PersonalInfo from "./component/PersonalInfo";
 import EducationDetails from "./component/EducationDetails";
 import OtherDetails from "./component/OtherDetails";
-
 import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
-
+const { Step } = Steps;
 function Enrollment() {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
@@ -38,9 +37,6 @@ function Enrollment() {
     programmeId: null,
   });
 
-  const next = () => {
-    setCurrentStep(currentStep + 1);
-  };
 
   const prev = () => {
     setCurrentStep(currentStep - 1);
@@ -68,6 +64,15 @@ console.log(formData)
     // ... Add more steps as needed
   ];
 
+  const handleNextClick = async () => {
+    try {
+      await form.validateFields();
+      setCurrentStep(currentStep + 1);
+    } catch (errorInfo) {
+      console.log(errorInfo);
+    }
+  };
+
   return (
     <div className="p-5">
       <div className="">
@@ -94,7 +99,8 @@ console.log(formData)
           {steps[currentStep].content}
           <div style={{ marginTop: 24 }}>
             {currentStep < steps.length - 1 && formData.programmeId && (
-              <Button type="primary" className="bg-[#0f4b93]" onClick={next}>
+              <Button type="primary" className="bg-[#0f4b93]" onClick={handleNextClick}
+              disabled={form.getFieldError().some((field)=> field.errors.length > 0)}>
                 Next
               </Button>
             )}

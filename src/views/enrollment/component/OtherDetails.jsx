@@ -29,12 +29,12 @@ function OtherDetails({state,setState}) {
           value={state?.techStack}
           onChange={(e) => setRequest("techStack", e)}
         >
-          <Select.Option value="microsoft">Frontend</Select.Option>
-          <Select.Option value="excel">Designs</Select.Option>
-          <Select.Option value="power">Backend</Select.Option>
-          <Select.Option value="corel">Full stack</Select.Option>
-          <Select.Option value="none">Dev Ops</Select.Option>
-          <Select.Option value="none">Microsoft Trainings</Select.Option>
+          <Select.Option value="frontend">Frontend</Select.Option>
+          <Select.Option value="designs">Designs</Select.Option>
+          <Select.Option value="backend">Backend</Select.Option>
+          <Select.Option value="fullstack">Full stack</Select.Option>
+          <Select.Option value="devOps">Dev Ops</Select.Option>
+          <Select.Option value="microsoft">Microsoft Trainings</Select.Option>
           <Select.Option value="other">Other</Select.Option>
         </Select>
       </Form.Item>
@@ -73,7 +73,7 @@ function OtherDetails({state,setState}) {
       >
         <Select
           value={state?.workSector}
-          onChange={(e) => setRequest("workSector", e.target.value)}
+          onChange={(value) => setRequest("workSector", value)}
           
         >
           <Select.Option value="fintech">Fintech</Select.Option>
@@ -82,7 +82,7 @@ function OtherDetails({state,setState}) {
           <Select.Option value="education">Banking</Select.Option>
           <Select.Option value="banking">Education</Select.Option>
           <Select.Option value="aviation">Aviation</Select.Option>
-          <Select.Option value="aviation">Other</Select.Option>
+          <Select.Option value="other">Other</Select.Option>
         </Select>
       </Form.Item>
       </Col>

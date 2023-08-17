@@ -7,6 +7,7 @@ import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
 import axios from "axios";
 
+
 function Enrollment() {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
@@ -76,7 +77,7 @@ function Enrollment() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(process.env.SSMP_BACKEND_API, formData);
+      const response = await axios.post(import.meta.env.SSMP_BACKEND_API, formData);
       console.log("Server Response:", response.data);
       // Reset the form after successful submission
       form.resetFields();

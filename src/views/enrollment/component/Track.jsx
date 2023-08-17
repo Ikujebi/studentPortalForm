@@ -46,7 +46,7 @@ function Track({ state, setState }) {
   }, []);
 
   return (
-    <div className="xl:w-[60%] md:w-[60%] mx-auto grid gap-5 sm:[40%]">
+    <div className="xl:w-[60%] md:w-[60%] mx-auto grid gap-5 ">
       {data.map((item, index) => (
         <div
           key={index}

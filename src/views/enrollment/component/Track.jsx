@@ -8,7 +8,7 @@ function Track({ state, setState }) {
   const data = [
     {
       img: techTalent,
-      title: "TECH-TALENT",
+      title: "TECH TALENT",
     },
     {
       img: stem,
@@ -41,7 +41,7 @@ function Track({ state, setState }) {
   }, []);
 
   return (
-    <div className="md:w-[40%] mx-auto grid gap-5">
+    <div className="xl:w-[60%] md:w-[60%] mx-auto grid gap-5 sm:[40%]">
       {data.map((item, index) => (
         <div
           key={index}

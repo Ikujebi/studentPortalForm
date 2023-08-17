@@ -51,7 +51,7 @@ function PersonalInfo({ state, setState }) {
               message: "Phone number is required",
             },
             {
-              pattern: /^[0-9][\d]{11}$/,
+              pattern: /^[0-9][\d]{10}$/,
               message: 'Invalid phone number'
             }
           ]}

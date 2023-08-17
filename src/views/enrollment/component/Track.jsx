@@ -3,8 +3,13 @@ import dataSci from "../../../assets/images/data.png";
 import techTalent from "../../../assets/images/techtalent.png";
 import useSetField from "../../../custom-hooks/useSetField";
 import { useEffect, useMemo } from "react";
+import { Radio } from "antd";
 
 function Track({ state, setState }) {
+  const handleProgrammeChange = (e) => {
+    const selectedProgrammeId = e.target.value;
+    setState({ ...state, programmeId: selectedProgrammeId });
+  };
   const data = [
     {
       img: techTalent,

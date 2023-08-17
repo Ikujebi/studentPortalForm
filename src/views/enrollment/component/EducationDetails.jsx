@@ -1,5 +1,5 @@
-import { Form, Input, Col,  Select, Row } from "antd";
-import useSetField from "../../../custom-hooks/UseSetField";
+import { Form, Input, Col,  Select, Row, DatePicker } from "antd";
+import useSetField from "../../../custom-hooks/useSetField.js";
 
 function EducationDetails({state,setState}) {
   const { setRequest } = useSetField(setState);
@@ -9,7 +9,7 @@ function EducationDetails({state,setState}) {
       <Form.Item
           className="input"
           label="Tell us your highest level of education"
-          name="instituitionAttended"
+          name="education"
           rules={[
             {
               required: true,
@@ -79,10 +79,10 @@ function EducationDetails({state,setState}) {
       </Col>
       <Col xs={24} md={12}>
       <Form.Item label="What year did you graduate" name="graduation">
-          <Input
-          className="input"
+      <DatePicker
+            picker="year"  // This sets the picker to only select years
             name="yearOfGraduation"
-            onChange={setRequest}
+            onChange={(date, dateString) => setRequest("yearOfGraduation", dateString)}
             value={state?.yearOfGraduation}
           />
         </Form.Item>
@@ -107,9 +107,9 @@ function EducationDetails({state,setState}) {
             onChange={(e) => setRequest("computerSkill", e.target.value)}
             
           >
-            <Select.Option value="">I am not familiar with computer</Select.Option>
-            <Select.Option value="2ndClass">Beginner</Select.Option>
-            <Select.Option value="2ndClass">I am familiar with computer</Select.Option>
+            <Select.Option value="notfam">I am not familiar with computer</Select.Option>
+            <Select.Option value="beginner">Beginner</Select.Option>
+            <Select.Option value="familiar">I am familiar with computer</Select.Option>
           </Select>
         </Form.Item>
       </Col>

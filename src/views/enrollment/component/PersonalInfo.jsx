@@ -1,5 +1,5 @@
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
-import useSetField from "../../../custom-hooks/UseSetField";
+import useSetField from "../../../custom-hooks/useSetField.js";
 
 function PersonalInfo({ state, setState }) {
   const { setRequest } = useSetField(setState);
@@ -50,6 +50,10 @@ function PersonalInfo({ state, setState }) {
               required: true,
               message: "Phone number is required",
             },
+            {
+              pattern: /^[0-9][\d]{11}$/,
+              message: 'Invalid phone number'
+            }
           ]}
         >
           <Input
@@ -68,6 +72,10 @@ function PersonalInfo({ state, setState }) {
               required: true,
               message: "Email is required",
             },
+            {
+              pattern: /^[\w\.-]+@\w+\.\w+(\.\w+)?$/,
+              message: "Invalid email format",
+            }
           ]}
         >
           <Input

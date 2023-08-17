@@ -5,7 +5,8 @@ import EducationDetails from "./component/EducationDetails";
 import OtherDetails from "./component/OtherDetails";
 import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
-const { Step } = Steps;
+import axios from 'axios';
+
 function Enrollment() {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
@@ -73,6 +74,20 @@ console.log(formData)
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(process.env.SSMP_BACKEND_API, formData);
+      console.log('Server Response:', response.data);
+      // Reset the form after successful submission
+      form.resetFields();
+      setCurrentStep(0); 
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      message.error("An error occured, please try again")
+    }
+  };
+
   return (
     <div className="p-5">
       <div className="">
@@ -107,7 +122,7 @@ console.log(formData)
             {currentStep === steps.length - 1 && (
               <Button
                 type="primary"
-                onClick={() => message.success("Processing complete!")}
+                onClick={handleSubmit}
                 className="bg-[#0f4b93]"
               >
                 Done

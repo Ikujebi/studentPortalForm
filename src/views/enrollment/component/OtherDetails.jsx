@@ -1,5 +1,5 @@
 import { Form, Input, Col,  Select, Row } from "antd";
-import useSetField from "../../../custom-hooks/UseSetField";
+import useSetField from "../../../custom-hooks/useSetField.js";
 
 function OtherDetails({state,setState}) {
   const { setRequest } = useSetField(setState);

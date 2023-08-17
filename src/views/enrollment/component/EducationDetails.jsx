@@ -1,27 +1,24 @@
 import { Form, Input, Col,  Select, Row, DatePicker } from "antd";
-import useSetField from "../../../custom-hooks/useSetField.js";
+import useSetField from "../../../custom-hooks/useSetField";
 
-function EducationDetails({state,setState}) {
+function EducationDetails({state, setState}) {
   const { setRequest } = useSetField(setState);
   return (
     <Row gutter={16} className="md:w-[70%]">
       <Col xs={24} md={12}>
       <Form.Item
-          className="input"
           label="Tell us your highest level of education"
           name="education"
           rules={[
             {
               required: true,
-              message: "highest level of education is required",
+              message: "Highest level of education is required",
             },
           ]}
         >
           <Select
-            name="education"
             value={state?.education}
-            onChange={(e) => setRequest("education", e)}
-            
+            onChange={(e) => setRequest("education", e)} 
           >
             <Select.Option value="primary">Primary School</Select.Option>
             <Select.Option value="ssce">Secondary School (SSCE)</Select.Option>
@@ -46,6 +43,7 @@ function EducationDetails({state,setState}) {
           ]}
         >
           <Select
+          name="classOfDegree"
             value={state?.classOfDegree}
             onChange={(e) => setRequest("classOfDegree", e)}
             
@@ -72,7 +70,7 @@ function EducationDetails({state,setState}) {
           <Input
           className="input"
             name="instituitionAttended"
-            onChange={setRequest}
+            onChange={(e) => setRequest("instituitionAttended", e)}
             value={state?.instituitionAttended}
           />
         </Form.Item>
@@ -80,8 +78,7 @@ function EducationDetails({state,setState}) {
       <Col xs={24} md={12}>
       <Form.Item label="What year did you graduate" name="graduation">
       <DatePicker
-            picker="year"  // This sets the picker to only select years
-            name="yearOfGraduation"
+            picker="year"  
             onChange={(date, dateString) => setRequest("yearOfGraduation", dateString)}
             value={state?.yearOfGraduation}
           />
@@ -97,14 +94,14 @@ function EducationDetails({state,setState}) {
           rules={[
             {
               required: true,
-              message: "describption of Computer Skills is required",
+              message: "Describption of Computer Skills is required",
             },
           ]}
         >
           <Select
             name="computerSkill"
             value={state?.computerSkill}
-            onChange={(e) => setRequest("computerSkill", e.target.value)}
+            onChange={(value) => setRequest("computerSkill", value)}
             
           >
             <Select.Option value="notfam">I am not familiar with computer</Select.Option>
@@ -123,13 +120,13 @@ function EducationDetails({state,setState}) {
             {
               required: true,
               message:
-                "describption of software have you used before is required",
+                "Describption of software have you used before is required",
             },
           ]}
         >
           <Select
             value={state?.softwareUsed}
-            onChange={(e) => setRequest("softwareUsed", e.target.value)}
+            onChange={(value) => setRequest("softwareUsed", value)}
             
           >
             <Select.Option value="microsoft">Microsoft Word</Select.Option>
@@ -150,13 +147,13 @@ function EducationDetails({state,setState}) {
           rules={[
             {
               required: true,
-              message: "software training history is required",
+              message: "Software training history is required",
             },
           ]}
         >
           <Select
             value={state?.softwareTraining}
-            onChange={(e) => setRequest("softwareTraining", e)}
+            onChange={(value) => setRequest("softwareTraining", value)}
            
           >
             <Select.Option value="yes">Yes</Select.Option>

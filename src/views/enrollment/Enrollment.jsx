@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Form, Button, Steps,message } from "antd";
+import { Form, Button, Steps, message } from "antd";
 import PersonalInfo from "./component/PersonalInfo";
 import EducationDetails from "./component/EducationDetails";
 import OtherDetails from "./component/OtherDetails";
 import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
-import axios from 'axios';
+import axios from "axios";
 
 function Enrollment() {
   const [form] = Form.useForm();
@@ -38,12 +38,11 @@ function Enrollment() {
     programmeId: null,
   });
 
-
   const prev = () => {
     setCurrentStep(currentStep - 1);
   };
 
-console.log(formData)
+  console.log(formData);
   const steps = [
     {
       title: "Select Programme",
@@ -55,13 +54,13 @@ console.log(formData)
     },
     {
       title: "Education Details",
-      content: <EducationDetails />,
+      content: <EducationDetails state={formData} setState={setFormData} />,
     },
     {
       title: "Other Details",
-      content: <OtherDetails />,
+      content: <OtherDetails state={formData} setState={setFormData} />,
     },
-    
+
     // ... Add more steps as needed
   ];
 
@@ -78,13 +77,13 @@ console.log(formData)
     e.preventDefault();
     try {
       const response = await axios.post(process.env.SSMP_BACKEND_API, formData);
-      console.log('Server Response:', response.data);
+      console.log("Server Response:", response.data);
       // Reset the form after successful submission
       form.resetFields();
-      setCurrentStep(0); 
+      setCurrentStep(0);
     } catch (error) {
-      console.error('Error submitting form:', error);
-      message.error("An error occured, please try again")
+      console.error("Error submitting form:", error);
+      message.error("An error occured, please try again");
     }
   };
 
@@ -114,8 +113,14 @@ console.log(formData)
           {steps[currentStep].content}
           <div style={{ marginTop: 24 }}>
             {currentStep < steps.length - 1 && formData.programmeId && (
-              <Button type="primary" className="bg-[#0f4b93]" onClick={handleNextClick}
-              disabled={form.getFieldError().some((field)=> field.errors.length > 0)}>
+              <Button
+                type="primary"
+                className="bg-[#0f4b93]"
+                onClick={handleNextClick}
+                disabled={form
+                  .getFieldError()
+                  .some((field) => field.errors.length > 0)}
+              >
                 Next
               </Button>
             )}
@@ -141,4 +146,3 @@ console.log(formData)
 }
 
 export default Enrollment;
- 

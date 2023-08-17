@@ -126,24 +126,27 @@ function PersonalInfo({ state, setState }) {
           />
         </Form.Item>
       </Col>
-      <Col xs={24} md={12}>
-      <Form.Item
-        label="Occupation"
-        name="occupation"
-        rules={[
-          {
-            required: true,
-            message: "Occupation is required",
-          },
-        ]}
-      >
-        <Input
-          className="input"
-          onChange={(e) => setRequest("email", e.target.value)}
-          value={state.occupation}
-        />
-      </Form.Item>
-      </Col>
+      {state.programmeId !== 2 && (
+        <Col xs={24} md={12}>
+        <Form.Item
+          label="Occupation"
+          name="occupation"
+          rules={[
+            {
+              required: true,
+              message: "Occupation is required",
+            },
+          ]}
+        >
+          <Input
+            className="input"
+            onChange={(e) => setRequest("occupation", e.target.value)}
+            value={state.occupation}
+          />
+        </Form.Item>
+        </Col>
+      )}
+      
       <Col xs={24} md={12}>
       <Form.Item
         className="input"
@@ -158,7 +161,7 @@ function PersonalInfo({ state, setState }) {
       >
         <Select
           value={state.location}
-          onChange={(e) => setRequest("email", e)}
+          onChange={(e) => setRequest("location", e)}
         >
           <Select.Option value="ikorodu">
             Ikorodu Local Government
@@ -217,7 +220,7 @@ function PersonalInfo({ state, setState }) {
       >
         <Input
           className="input"
-          onChange={(e) => setRequest("email", e.target.value)}
+          onChange={(e) => setRequest("homeAddress", e.target.value)}
           value={state.homeAddress}
         />
       </Form.Item>

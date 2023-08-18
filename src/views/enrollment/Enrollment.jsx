@@ -78,29 +78,12 @@ const [responseMessage, setResponseMessage] = useState("");
     }
   };
 
- /*  const checkDuplicateEmail = async (email) => {
-    try {
-      const response = await axios.get(
-         import.meta.env.VITE_APP_SSMP_BACKEND_API,"/${email}"
-        // "${import.meta.env.VITE_APP_SSMP_BACKEND_API}, ${"
-      );
-      return response.data.exists;
-    } catch (error) {
-      console.error("Error checking email:", error);
-      return false;
-    }
-  }; */
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    /*    
-    // Check if the email already exists on the server
-    const isDuplicateEmail = await checkDuplicateEmail(formData.email);
-    if (isDuplicateEmail) {
-      message.error("This email has already been used. Please use a different email.");
-      return;
-    } */
+    
       const formattedDob = formData.dob ? dayjs(formData.dob).format('YYYY-MM-DD') : null;
 console.log(formattedDob);
     const dataToSend = {

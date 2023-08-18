@@ -81,7 +81,7 @@ const [responseMessage, setResponseMessage] = useState("");
   const checkDuplicateEmail = async (email) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_APP_SSMP_BACKEND_API}/check-email/${email}`
+        import.meta.env.VITE_APP_SSMP_BACKEND_API.find(email)
       );
       return response.data.exists;
     } catch (error) {
@@ -93,14 +93,13 @@ const [responseMessage, setResponseMessage] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
-        // Check if the email already exists on the server
-        const isDuplicateEmail = await checkDuplicateEmail(formData.email);
-        if (isDuplicateEmail) {
-          message.error("This email has already been used. Please use a different email.");
-          return;
-        }
-
+       
+    // Check if the email already exists on the server
+    const isDuplicateEmail = await checkDuplicateEmail(formData.email);
+    if (isDuplicateEmail) {
+      message.error("This email has already been used. Please use a different email.");
+      return;
+    }
       const formattedDob = formData.dob ? dayjs(formData.dob).format('YYYY-MM-DD') : null;
 console.log(formattedDob);
     const dataToSend = {
@@ -125,11 +124,18 @@ console.log(formattedDob);
       message.success("Form submitted successfully");
     } catch (error) {
       console.error("Error submitting form:", error);
-      message.error(error);
+      message.error("You cannot register more than once");
+      setResponseMessage("An error occurred. Please try again later.",error);
+    setModalVisible(true);
     }
   };
 
-  
+  const handleModalClose = () => {
+    setModalVisible(false);
+    setResponseMessage(""); // Clear the response message
+    message.info("Response message acknowledged");
+  };
+
 
   return (
     <div className="p-5">
@@ -185,7 +191,19 @@ console.log(formattedDob);
           </div>
           
         </Form>
-      
+         {/* Modal for displaying the response message */}
+         {/* <Modal
+        title="Form Submission Result"
+        open={modalVisible}
+        onCancel={handleModalClose}
+        footer={[
+          <Button key="ok" type="primary" onClick={handleModalClose}>
+            OK
+          </Button>,
+        ]}
+      >
+        {responseMessage}
+      </Modal> */}
       </div>
     </div>
   );

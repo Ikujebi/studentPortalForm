@@ -162,18 +162,7 @@ console.log(formattedDob);
 
           {steps[currentStep].content}
           <div style={{ marginTop: 24 }}>
-            {currentStep < steps.length - 1 && formData.programmeId && (
-              <Button
-                type="primary"
-                className="bg-[#0f4b93]"
-                onClick={handleNextClick}
-                disabled={form
-                  .getFieldError()
-                  .some((field) => field.errors.length > 0)}
-              >
-                Next
-              </Button>
-            )}
+            
             {currentStep === steps.length - 1 && (
               <Button
                 type="primary"
@@ -186,6 +175,19 @@ console.log(formattedDob);
             {currentStep > 0 && (
               <Button style={{ margin: "0 8px" }} onClick={prev}>
                 Previous
+              </Button>
+            )}
+
+{currentStep < steps.length - 1 && formData.programmeId && (
+              <Button
+                type="primary"
+                className="bg-[#0f4b93]"
+                onClick={handleNextClick}
+                disabled={form
+                  .getFieldError()
+                  .some((field) => field.errors.length > 0)}
+              >
+                Next
               </Button>
             )}
           </div>

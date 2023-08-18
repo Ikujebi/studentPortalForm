@@ -6,11 +6,15 @@ import OtherDetails from "./component/OtherDetails";
 import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
 import axios from "axios";
+import * as dayjs from 'dayjs'
+
 
 
 function Enrollment() {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+const [responseMessage, setResponseMessage] = useState(""); 
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -74,19 +78,58 @@ function Enrollment() {
     }
   };
 
+  const checkDuplicateEmail = async (email) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_SSMP_BACKEND_API}/check-email/${email}`
+      );
+      return response.data.exists;
+    } catch (error) {
+      console.error("Error checking email:", error);
+      return false;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(import.meta.env.SSMP_BACKEND_API, formData);
+      
+        // Check if the email already exists on the server
+        const isDuplicateEmail = await checkDuplicateEmail(formData.email);
+        if (isDuplicateEmail) {
+          message.error("This email has already been used. Please use a different email.");
+          return;
+        }
+
+      const formattedDob = formData.dob ? dayjs(formData.dob).format('YYYY-MM-DD') : null;
+console.log(formattedDob);
+    const dataToSend = {
+      ...formData,
+      dob: formattedDob, }
+      console.log(dataToSend);
+      const formDataJSON = JSON.stringify(dataToSend);
+      console.log(formDataJSON);
+      const response = await axios.post(import.meta.env.VITE_APP_SSMP_BACKEND_API, formDataJSON,{
+        headers: {
+          "Content-Type":"application/json"
+        }
+      });
+      
       console.log("Server Response:", response.data);
+      setResponseMessage(response.data.message);
+      setModalVisible(true);
+
       // Reset the form after successful submission
       form.resetFields();
       setCurrentStep(0);
+      message.success("Form submitted successfully");
     } catch (error) {
       console.error("Error submitting form:", error);
-      message.error("An error occured, please try again");
+      message.error(error);
     }
   };
+
+  
 
   return (
     <div className="p-5">
@@ -102,7 +145,7 @@ function Enrollment() {
           layout="vertical"
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
-          className="md:w-[70%] mx-auto mt-20 flex flex-col items-center justify-center"
+          className="md:w-[90%] mx-auto mt-20 flex flex-col items-center justify-center xl:w-[60%]"
         >
           <Steps
             current={currentStep}
@@ -140,7 +183,9 @@ function Enrollment() {
               </Button>
             )}
           </div>
+          
         </Form>
+      
       </div>
     </div>
   );

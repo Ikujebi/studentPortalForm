@@ -1,8 +1,34 @@
+import React, { useState, useEffect } from "react";
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import useSetField from "../../../custom-hooks/useSetField.js";
+import axios from "axios";
 
+// https://ssmp-api.onrender.com/api/v1/user/lga
 function PersonalInfo({ state, setState }) {
   const { setRequest } = useSetField(setState);
+  const [locationOptions, setLocationOptions] = useState([]);
+  
+async function fetchOptions() {
+  try {
+    const response = await axios.get("https://ssmp-api.onrender.com/api/v1/user/lga");
+    
+   
+    console.log(response); 
+    return response.data.data;
+    
+  } catch (error) {
+    console.error("Error fetching options:", error);
+    return [];
+  }
+}
+
+useEffect(() => {
+  fetchOptions()
+  
+    .then((fetchedOption) => setLocationOptions(fetchedOption))
+    .catch((error) => console.error("Error setting location options:", error));
+}, []);
+
   return (
     <>
     
@@ -151,7 +177,7 @@ function PersonalInfo({ state, setState }) {
       <Form.Item
         className="input"
         label="Local Govt Of Residence"
-        name="location"
+        name="lga"
         rules={[
           {
             required: true,
@@ -161,49 +187,25 @@ function PersonalInfo({ state, setState }) {
       >
         <Select
           value={state.location}
-          onChange={(e) => setRequest("location", e)}
+          onChange={(e) => setRequest("lga", e)}
         >
-          <Select.Option value="ikorodu">
+           {locationOptions.map((option) => (
+                <Select.Option key={option._id} value={option.name}>
+                  {option.name}
+                </Select.Option>
+              ))}{/* 
+          <Select.Option name="Ikorodu" value="ikorodu">
             Ikorodu Local Government
           </Select.Option>
-          <Select.Option value="shomolu">
+          <Select.Option name="Shomolu" value="somolu">
             Shomolu Local Government
           </Select.Option>
-          <Select.Option value="epe">Epe Local Goverment</Select.Option>
+          <Select.Option name="Epe" value="epe">Epe Local Goverment</Select.Option>
           <Select.Option value="ibeju">
             Ibeju-Lekki Local Government
           </Select.Option>
-          <Select.Option value="kosofe">Kosofe Local Government</Select.Option>
-          <Select.Option value="alimosho">
-            Alimosho Local Government
-          </Select.Option>
-          <Select.Option value="mushin">Mushin Local Government</Select.Option>
-          <Select.Option value="oshodi">
-            Oshodi-Isolo Local Government
-          </Select.Option>
-          <Select.Option value="ojo">Ojo Local Government</Select.Option>
-          <Select.Option value="surulere">
-            Surulere Local Government
-          </Select.Option>
-          <Select.Option value="ifako">
-            Ifako-Ijaye Local Government
-          </Select.Option>
-          <Select.Option value="agege">Agege Local Government</Select.Option>
-          <Select.Option value="amuwo">
-            Amuwo-Odofin Local Government
-          </Select.Option>
-          <Select.Option value="mainland">
-            Lagos Mainland Local Government
-          </Select.Option>
-          <Select.Option value="ikeja">Ikeja Local Government</Select.Option>
-          <Select.Option value="etiOsa">Eti-Osa Local Government</Select.Option>
-          <Select.Option value="badagry">
-            Badagry Local Government
-          </Select.Option>
-          <Select.Option value="apapa">Apapa Local Government</Select.Option>
-          <Select.Option value="island">
-            Lagos Island Local Government
-          </Select.Option>
+          <Select.Option name="Kosofe" value="kosofe">Kosofe Local Government</Select.Option> */}
+          
         </Select>
       </Form.Item>
       </Col>

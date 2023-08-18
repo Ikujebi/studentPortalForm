@@ -1,5 +1,7 @@
 import { Form, Input, Col,  Select, Row } from "antd";
 import useSetField from "../../../custom-hooks/useSetField.js";
+import stem from "../../../assets/images/STEM.jpg";
+import dataSci from "../../../assets/images/data.png";
 
 function OtherDetails({state,setState}) {
   const { setRequest } = useSetField(setState);
@@ -54,7 +56,7 @@ function OtherDetails({state,setState}) {
         <Input
         className="input"
           name="preferredJob"
-          onChange={setRequest}
+          onChange={(e) => setRequest("preferredJob", e.target.value)}
           value={state?.preferredJob}
         />
       </Form.Item>
@@ -73,7 +75,7 @@ function OtherDetails({state,setState}) {
       >
         <Select
           value={state?.workSector}
-          onChange={(value) => setRequest("workSector", value)}
+          onChange={(e) => setRequest("workSector", e)}
           
         >
           <Select.Option value="fintech">Fintech</Select.Option>
@@ -97,8 +99,8 @@ function OtherDetails({state,setState}) {
           value={state?.commitment}
           onChange={(e) => setRequest("commitment", e)}
         >
-          <Select.Option value="yes">Yes</Select.Option>
-          <Select.Option value="no">No</Select.Option>
+          <Select.Option value={true}>Yes</Select.Option>
+          <Select.Option value={false}>No</Select.Option>
         </Select>
       </Form.Item>
       </Col>
@@ -117,7 +119,7 @@ function OtherDetails({state,setState}) {
         className="input"
           rows={4}
           name="applicationYouWillBuild"
-          onChange={setRequest}
+          onChange={(e) => setRequest("applicationYouWillBuild", e.target.value)}
           value={state?.applicationYouWillBuild}
         />
       </Form.Item>
@@ -137,7 +139,7 @@ function OtherDetails({state,setState}) {
         className="input"
           rows={4}
           name="reasonForScholarship"
-          onChange={setRequest}
+          onChange={(e) => setRequest("reasonForScholarship", e.target.value)}
           value={state?.reasonForScholarship}
         />
       </Form.Item>
@@ -145,11 +147,12 @@ function OtherDetails({state,setState}) {
       </Row>
     ) : state.programmeId === 2 ? (
       <Row gutter={16} className="md:w-[70%]">
-        STEM Content Here
+        <img src={stem} alt="" srcset="" />
       </Row>
     ) : (
       <Row gutter={16} className="md:w-[70%]">
-        Data Science Content Here
+        <img src={dataSci} alt="" srcset="" />
+        Data Science Content Here dataSci
       </Row>
     )}
     

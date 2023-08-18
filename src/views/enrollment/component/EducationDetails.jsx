@@ -70,7 +70,7 @@ function EducationDetails({state, setState}) {
           <Input
           className="input"
             name="instituitionAttended"
-            onChange={(e) => setRequest("instituitionAttended", e)}
+            onChange={(e) => setRequest("instituitionAttended", e.target.value)}
             value={state?.instituitionAttended}
           />
         </Form.Item>
@@ -153,11 +153,11 @@ function EducationDetails({state, setState}) {
         >
           <Select
             value={state?.softwareTraining}
-            onChange={(value) => setRequest("softwareTraining", value)}
+            onChange={(e) => setRequest("softwareTraining", e)}
            
           >
-            <Select.Option value="yes">Yes</Select.Option>
-            <Select.Option value="no">No</Select.Option>
+            <Select.Option value={true}>Yes</Select.Option>
+            <Select.Option value={false}>No</Select.Option>
           </Select>
         </Form.Item>
         </Col>

@@ -128,7 +128,7 @@ useEffect(() => {
             <Select.Option value="male">Male</Select.Option>
             <Select.Option value="female">Female</Select.Option>
             <Select.Option value="binary">Non-Binary</Select.Option>
-            <Select.Option value="others">other</Select.Option>
+            <Select.Option value="others">Prefer not to say</Select.Option>
           </Select>
         </Form.Item>
       </Col>

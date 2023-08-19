@@ -91,6 +91,7 @@ function Enrollment() {
       setOpen(true);
       setLoading(false);
     } catch (error) {
+      console.log(error);
       setOpen(true);
       setLoading(false);
       setMessage(response.data.responseMessage?.toUpperCase());
@@ -253,7 +254,7 @@ function Enrollment() {
                   Next
                 </Button>
               )}
-              
+
               {currentStep === steps.length - 1 && (
                 <Button
                   type="primary"

@@ -6,15 +6,13 @@ import OtherDetails from "./component/OtherDetails";
 import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
 import axios from "axios";
-import * as dayjs from 'dayjs'
-
-
+import * as dayjs from "dayjs";
 
 function Enrollment() {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-const [responseMessage, setResponseMessage] = useState(""); 
+  const [responseMessage, setResponseMessage] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -78,39 +76,22 @@ const [responseMessage, setResponseMessage] = useState("");
     }
   };
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-    
-      const formattedDob = formData.dob ? dayjs(formData.dob).format('YYYY-MM-DD') : null;
-      console.log(formattedDob);
-    const dataToSend = {
-      ...formData,
-      dob: formattedDob, }
-      console.log(dataToSend);
-      const formDataJSON = JSON.stringify(dataToSend);
-      console.log(formDataJSON);
-      const response = await axios.post(import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",formDataJSON,{
-        headers: {
-          "Content-Type":"application/json"
-        }
-      });
+  const handleSubmit = async () => {
+    const formattedDob = dayjs(formData.dob).format("YYYY-MM-DD");
+    const response = await axios.post(
+      import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
+      { ...formData, dob: formattedDob }
       
-      console.log("Server Response:", response.data);
-      setResponseMessage(response.data.message);
-      setModalVisible(true);
+    );
 
-      // Reset the form after successful submission
-      form.resetFields();
-      setCurrentStep(0);
-      message.success("Form submitted successfully");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      message.error("You cannot register more than once");
-      setResponseMessage("An error occurred. Please try again later.",error);
+    console.log("Server Response:", response.data);
+    setResponseMessage(response.data.message);
     setModalVisible(true);
-    }
+
+    // Reset the form after successful submission
+    form.resetFields();
+    setCurrentStep(0);
+    message.success("Form submitted successfully");
   };
 
   const handleModalClose = () => {
@@ -118,7 +99,6 @@ const [responseMessage, setResponseMessage] = useState("");
     setResponseMessage(""); // Clear the response message
     message.info("Response message acknowledged");
   };
-
 
   return (
     <div className="p-5">
@@ -134,7 +114,106 @@ const [responseMessage, setResponseMessage] = useState("");
           layout="vertical"
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
+          onFinish={handleSubmit}
           className="md:w-[90%] mx-auto mt-20 flex flex-col items-center justify-center xl:w-[60%]"
+          fields={[
+            {
+              name: "firstName",
+              value: formData.firstName
+            },
+            {
+              name: "lastName",
+              value: formData.lastName
+            },
+            {
+              name: "email",
+              value: formData.email
+            },
+            {
+              name: "phoneNumber",
+              value: formData.phoneNumber
+            },
+            {
+              name: "sex",
+              value: formData.sex
+            },
+            {
+              name: "dob",
+              value: formData.dob
+            },
+            {
+              name: "lga",
+              value: formData.lga
+            },
+            {
+              name: "homeAddress",
+              value: formData.homeAddress
+            },
+            {
+              name: "programme",
+              value: formData.programme
+            },
+            {
+              name: "occupation",
+              value: formData.occupation
+            },
+            {
+              name: "education",
+              value: formData.education
+            },
+            {
+              name: "classOfDegree",
+              value: formData.classOfDegree
+            },
+            {
+              name: "instituitionAttended",
+              value: formData.instituitionAttended
+            },
+            {
+              name: "yearOfGraduation",
+              value: formData.yearOfGraduation
+            },
+            {
+              name: "computerSkill",
+              value: formData.computerSkill
+            },
+            {
+              name: "softwareUsed",
+              value: formData.softwareUsed
+            },
+            {
+              name: "softwareTraining",
+              value: formData.softwareTraining
+            },
+            {
+              name: "applicationYouWillBuild",
+              value: formData.applicationYouWillBuild
+            },
+            {
+              name: "techStack",
+              value: formData.techStack
+            },
+            {
+              name: "preferredJob",
+              value: formData.preferredJob
+            },
+            {
+              name: "workSector",
+              value: formData.workSector
+            },
+            {
+              name: "reasonForScholarship",
+              value: formData.reasonForScholarship
+            },
+            {
+              name: "commitment",
+              value: formData.commitment
+            },
+            {
+              name: "programmeId",
+              value: formData.programmeId
+            }
+          ]}
         >
           <Steps
             current={currentStep}
@@ -158,11 +237,7 @@ const [responseMessage, setResponseMessage] = useState("");
               </Button>
             )}
             {currentStep === steps.length - 1 && (
-              <Button
-                type="primary"
-                onClick={handleSubmit}
-                className="bg-[#0f4b93]"
-              >
+              <Button type="primary" htmlType="submit" className="bg-[#0f4b93]">
                 Done
               </Button>
             )}
@@ -172,10 +247,9 @@ const [responseMessage, setResponseMessage] = useState("");
               </Button>
             )}
           </div>
-          
         </Form>
-         {/* Modal for displaying the response message */}
-         {/* <Modal
+        {/* Modal for displaying the response message */}
+        {/* <Modal
         title="Form Submission Result"
         open={modalVisible}
         onCancel={handleModalClose}

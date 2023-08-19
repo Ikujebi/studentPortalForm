@@ -193,18 +193,7 @@ useEffect(() => {
                 <Select.Option key={option._id} value={option.name}>
                   {option.name}
                 </Select.Option>
-              ))}{/* 
-          <Select.Option name="Ikorodu" value="ikorodu">
-            Ikorodu Local Government
-          </Select.Option>
-          <Select.Option name="Shomolu" value="somolu">
-            Shomolu Local Government
-          </Select.Option>
-          <Select.Option name="Epe" value="epe">Epe Local Goverment</Select.Option>
-          <Select.Option value="ibeju">
-            Ibeju-Lekki Local Government
-          </Select.Option>
-          <Select.Option name="Kosofe" value="kosofe">Kosofe Local Government</Select.Option> */}
+              ))}
           
         </Select>
       </Form.Item>

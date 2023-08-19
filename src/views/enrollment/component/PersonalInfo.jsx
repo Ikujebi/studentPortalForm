@@ -10,7 +10,7 @@ function PersonalInfo({ state, setState }) {
   
 async function fetchOptions() {
   try {
-    const response = await axios.get("https://ssmp-api.onrender.com/api/v1/user/lga");
+    const response = await axios.get(import.meta.env.VITE_APP_SSMP_BACKEND_API +"lga");
     
    
     console.log(response); 

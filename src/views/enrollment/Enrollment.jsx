@@ -92,7 +92,7 @@ console.log(formattedDob);
       console.log(dataToSend);
       const formDataJSON = JSON.stringify(dataToSend);
       console.log(formDataJSON);
-      const response = await axios.post(import.meta.env.VITE_APP_SSMP_BACKEND_API, formDataJSON,{
+      const response = await axios.post(import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants", formDataJSON,{
         headers: {
           "Content-Type":"application/json"
         }

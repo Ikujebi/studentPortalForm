@@ -231,6 +231,16 @@ function Enrollment() {
               style={{ marginTop: 24 }}
               className="flex items-center justify-between"
             >
+              {currentStep > 0 && (
+                <Button
+                  style={{ margin: "0 8px" }}
+                  className="px-14 flex items-center justify-center py-5"
+                  onClick={prev}
+                >
+                  Previous
+                </Button>
+              )}
+
               {currentStep < steps.length - 1 && formData.programmeId && (
                 <Button
                   type="primary"
@@ -243,6 +253,7 @@ function Enrollment() {
                   Next
                 </Button>
               )}
+              
               {currentStep === steps.length - 1 && (
                 <Button
                   type="primary"
@@ -252,15 +263,7 @@ function Enrollment() {
                   Done
                 </Button>
               )}
-              {currentStep > 0 && (
-                <Button
-                  style={{ margin: "0 8px" }}
-                  className="px-14 flex items-center justify-center py-5"
-                  onClick={prev}
-                >
-                  Previous
-                </Button>
-              )}
+              
             </div>
           </Form>
         </div>

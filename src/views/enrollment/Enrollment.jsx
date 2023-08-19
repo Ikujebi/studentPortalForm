@@ -84,18 +84,17 @@ const [responseMessage, setResponseMessage] = useState("");
     try {
     
       const formattedDob = formData.dob ? dayjs(formData.dob).format('YYYY-MM-DD') : null;
-console.log(formattedDob);
+      console.log(formattedDob);
     const dataToSend = {
       ...formData,
       dob: formattedDob, }
       console.log(dataToSend);
       const formDataJSON = JSON.stringify(dataToSend);
       console.log(formDataJSON);
-      const response = await axios.post(import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",{
+      const response = await axios.post(import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",formDataJSON,{
         headers: {
           "Content-Type":"application/json"
-        },
-        body: formDataJSON
+        }
       });
       
       console.log("Server Response:", response.data);

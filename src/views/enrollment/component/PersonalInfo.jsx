@@ -140,7 +140,7 @@ useEffect(() => {
             name="dob"
             format="YYYY-MM-DD" // Date format as needed
             className="w-full"
-            onChange={(e, i) => setRequest("dob", i)}
+            onChange={(e) => setRequest("dob", e)}
             value={state.dob}
           />
         </Form.Item>

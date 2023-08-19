@@ -7,13 +7,13 @@ import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
 import axios from "axios";
 import * as dayjs from "dayjs";
+import ResponseModal from "../../common/response-modal";
 
 function Enrollment() {
   const [form] = Form.useForm();
   const [currentStep, setCurrentStep] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
-
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -45,7 +45,6 @@ function Enrollment() {
     setCurrentStep(currentStep - 1);
   };
 
-  console.log(formData);
   const steps = [
     {
       title: "Select Programme",
@@ -77,36 +76,33 @@ function Enrollment() {
   };
 
   const handleSubmit = async () => {
-    const formattedDob = dayjs(formData.dob).format("YYYY-MM-DD");
-    const response = await axios.post(
-      import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
-      { ...formData, dob: formattedDob }
-      
-    );
-
-    console.log("Server Response:", response.data);
-    setResponseMessage(response.data.message);
-    setModalVisible(true);
-
-    // Reset the form after successful submission
-    form.resetFields();
-    setCurrentStep(0);
-    message.success("Form submitted successfully");
-  };
-
-  const handleModalClose = () => {
-    setModalVisible(false);
-    setResponseMessage(""); // Clear the response message
-    message.info("Response message acknowledged");
+    // const formattedDob = dayjs(formData.dob).format("YYYY-MM-DD");
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
+        formData
+      );
+      setMessage(response.data.responseMessage?.toUpperCase());
+      // Reset the form after successful submission
+      form.resetFields();
+      setCurrentStep(0);
+      setOpen(true)
+    } catch (error) {}
   };
 
   return (
     <div className="p-5">
+      <ResponseModal
+        open={open}
+        setOpen={setOpen}
+        message={message}
+        description="You have successfully enrolled for the SAIL Tech Talent programme, a mail will be sent to your inbox for confirmation"
+      />
       <div className="">
         <img src={image} alt="logo" className="w-[10rem]" />
       </div>
       <div className="">
-        <h1 className="text-center font-bold font-[poppins-extra-bold] text-2xl mt-5 lg:text-5xl text-[#0f4b93]">
+        <h1 className="text-center font-bold font-[poppins-extra-bold] text-3xl mt-5 lg:text-5xl text-[#0f4b93]">
           Registration Form
         </h1>
         <Form
@@ -115,119 +111,122 @@ function Enrollment() {
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           onFinish={handleSubmit}
-          className="md:w-[90%] mx-auto mt-20 flex flex-col items-center justify-center xl:w-[60%]"
+          className="md:w-[90%] mx-auto mt-5 md:mt-14 flex flex-col items-center justify-center xl:w-[60%]"
           fields={[
             {
               name: "firstName",
-              value: formData.firstName
+              value: formData.firstName,
             },
             {
               name: "lastName",
-              value: formData.lastName
+              value: formData.lastName,
             },
             {
               name: "email",
-              value: formData.email
+              value: formData.email,
             },
             {
               name: "phoneNumber",
-              value: formData.phoneNumber
+              value: formData.phoneNumber,
             },
             {
               name: "sex",
-              value: formData.sex
+              value: formData.sex,
             },
             {
               name: "dob",
-              value: formData.dob
+              value: formData.dob,
             },
             {
               name: "lga",
-              value: formData.lga
+              value: formData.lga,
             },
             {
               name: "homeAddress",
-              value: formData.homeAddress
+              value: formData.homeAddress,
             },
             {
               name: "programme",
-              value: formData.programme
+              value: formData.programme,
             },
             {
               name: "occupation",
-              value: formData.occupation
+              value: formData.occupation,
             },
             {
               name: "education",
-              value: formData.education
+              value: formData.education,
             },
             {
               name: "classOfDegree",
-              value: formData.classOfDegree
+              value: formData.classOfDegree,
             },
             {
               name: "instituitionAttended",
-              value: formData.instituitionAttended
+              value: formData.instituitionAttended,
             },
             {
               name: "yearOfGraduation",
-              value: formData.yearOfGraduation
+              value: formData.yearOfGraduation,
             },
             {
               name: "computerSkill",
-              value: formData.computerSkill
+              value: formData.computerSkill,
             },
             {
               name: "softwareUsed",
-              value: formData.softwareUsed
+              value: formData.softwareUsed,
             },
             {
               name: "softwareTraining",
-              value: formData.softwareTraining
+              value: formData.softwareTraining,
             },
             {
               name: "applicationYouWillBuild",
-              value: formData.applicationYouWillBuild
+              value: formData.applicationYouWillBuild,
             },
             {
               name: "techStack",
-              value: formData.techStack
+              value: formData.techStack,
             },
             {
               name: "preferredJob",
-              value: formData.preferredJob
+              value: formData.preferredJob,
             },
             {
               name: "workSector",
-              value: formData.workSector
+              value: formData.workSector,
             },
             {
               name: "reasonForScholarship",
-              value: formData.reasonForScholarship
+              value: formData.reasonForScholarship,
             },
             {
               name: "commitment",
-              value: formData.commitment
+              value: formData.commitment,
             },
             {
               name: "programmeId",
-              value: formData.programmeId
-            }
+              value: formData.programmeId,
+            },
           ]}
         >
           <Steps
             current={currentStep}
-            responsive
+            responsive={true}
             items={steps}
-            className="mb-20"
+            className="mb-5 md:mb-14"
           />
 
           {steps[currentStep].content}
-          <div style={{ marginTop: 24 }}>
+          <div
+            style={{ marginTop: 24 }}
+            className="flex items-center justify-between"
+          >
             {currentStep < steps.length - 1 && formData.programmeId && (
               <Button
                 type="primary"
-                className="bg-[#0f4b93]"
+                className="bg-[#0f4b93] px-14 flex items-center justify-center py-5"
                 onClick={handleNextClick}
                 disabled={form
                   .getFieldError()
@@ -237,30 +236,25 @@ function Enrollment() {
               </Button>
             )}
             {currentStep === steps.length - 1 && (
-              <Button type="primary" htmlType="submit" className="bg-[#0f4b93]">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="bg-[#0f4b93] px-14 flex items-center justify-center py-5"
+              >
                 Done
               </Button>
             )}
             {currentStep > 0 && (
-              <Button style={{ margin: "0 8px" }} onClick={prev}>
+              <Button
+                style={{ margin: "0 8px" }}
+                className="px-14 flex items-center justify-center py-5"
+                onClick={prev}
+              >
                 Previous
               </Button>
             )}
           </div>
         </Form>
-        {/* Modal for displaying the response message */}
-        {/* <Modal
-        title="Form Submission Result"
-        open={modalVisible}
-        onCancel={handleModalClose}
-        footer={[
-          <Button key="ok" type="primary" onClick={handleModalClose}>
-            OK
-          </Button>,
-        ]}
-      >
-        {responseMessage}
-      </Modal> */}
       </div>
     </div>
   );

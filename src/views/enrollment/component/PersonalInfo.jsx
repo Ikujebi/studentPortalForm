@@ -3,7 +3,6 @@ import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import useSetField from "../../../custom-hooks/useSetField.js";
 import axios from "axios";
 
-// https://ssmp-api.onrender.com/api/v1/user/lga
 function PersonalInfo({ state, setState }) {
   const { setRequest } = useSetField(setState);
   const [locationOptions, setLocationOptions] = useState([]);
@@ -11,11 +10,7 @@ function PersonalInfo({ state, setState }) {
 async function fetchOptions() {
   try {
     const response = await axios.get(import.meta.env.VITE_APP_SSMP_BACKEND_API +"lga");
-    
-   
-    console.log(response); 
     return response.data.data;
-    
   } catch (error) {
     console.error("Error fetching options:", error);
     return [];
@@ -30,8 +25,6 @@ useEffect(() => {
 }, []);
 
   return (
-    <>
-    
     <Row gutter={16} className="md:w-[70%]">
       <Col xs={24} md={12}>
         <Form.Item
@@ -147,7 +140,7 @@ useEffect(() => {
             name="dob"
             format="YYYY-MM-DD" // Date format as needed
             className="w-full"
-            onChange={(e) => setRequest("dob", e)}
+            onChange={(e, i) => setRequest("dob", i)}
             value={state.dob}
           />
         </Form.Item>
@@ -217,7 +210,6 @@ useEffect(() => {
       </Form.Item>
       </Col>
     </Row>
-    </>
   );
 }
 

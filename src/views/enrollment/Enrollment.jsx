@@ -91,10 +91,9 @@ function Enrollment() {
       setOpen(true);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setOpen(true);
       setLoading(false);
-      setMessage(response.data.responseMessage?.toUpperCase());
+      setMessage("Something went wrong");
     }
   };
 

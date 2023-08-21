@@ -83,7 +83,7 @@ function Enrollment() {
       const response = await axios.post(
         import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
        /*  { ...formData, dob: dayjs(formData.dob).toJSON() } */
-        { ...formData, dob: (formData.dob).toISOString().toJSON() }
+        { ...formData, dob: (formData.dob).toISOString()}
       );
       setMessage(response.data.responseMessage?.toUpperCase());
       // Reset the form after successful submission

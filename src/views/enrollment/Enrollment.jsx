@@ -82,7 +82,7 @@ function Enrollment() {
     try {
       const response = await axios.post(
         import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
-        { ...formData, dob: dayjs(formData.dob).toJSON() }
+        { ...formData, dob: dayjs(...formData.dob).toJSON() }
       );
       setMessage(response.data.responseMessage?.toUpperCase());
       // Reset the form after successful submission
@@ -93,7 +93,7 @@ function Enrollment() {
     } catch (error) {
       setOpen(true);
       setLoading(false);
-      setMessage("Something went wrong");
+      setMessage(error);
     }
   };
 

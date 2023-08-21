@@ -6,7 +6,6 @@ import OtherDetails from "./component/OtherDetails";
 import Track from "./component/Track";
 import image from "../../assets/images/saillab.png";
 import axios from "axios";
-import * as dayjs from "dayjs";
 import ResponseModal from "../../common/response-modal";
 
 function Enrollment() {
@@ -82,8 +81,8 @@ function Enrollment() {
     try {
       const response = await axios.post(
         import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
-       /*  { ...formData, dob: dayjs(formData.dob).toJSON() } */
-        { ...formData, dob: (formData.dob).toISOString()}
+       
+        { ...formData, dob: formData.dob.toISOString()}
       );
       setMessage(response.data.responseMessage?.toUpperCase());
       // Reset the form after successful submission
@@ -219,15 +218,16 @@ function Enrollment() {
                 value: formData.programmeId,
               },
             ]}
-          >
+          > <div className="w-[100%]">
             <Steps
               current={currentStep}
               responsive={true}
               items={steps}
-              className="mb-5 md:mb-14"
-            />
+              className="mb-5 md:mb-14  "
+            /></div>
 
             {steps[currentStep].content}
+            
             <div
               style={{ marginTop: 24 }}
               className="flex items-center justify-between"

@@ -106,13 +106,14 @@ function Enrollment() {
           message={message}
           description={"You have successfully enrolled for the SAIL Tech Talent programme, a mail will be sent to your inbox for confirmation"}
         />
-        <div className="">
+        <header className="fixed z-10 top-0 left-0 w-full bg-white text-center py-2 mb-10">
           <img src={image} alt="logo" className="w-[10rem]" />
-        </div>
-        <div className="">
           <h1 className="text-center font-bold font-[poppins-extra-bold] text-3xl mt-5 lg:text-5xl text-[#0f4b93]">
             Registration Form
           </h1>
+        </header>
+        <div className=" mt-[7.23rem]">
+          
           <Form
             form={form}
             layout="vertical"
@@ -218,7 +219,7 @@ function Enrollment() {
                 value: formData.programmeId,
               },
             ]}
-          > <div className="w-[100%]">
+          > <div className="w-full">
             <Steps
               current={currentStep}
               responsive={false}

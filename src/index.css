@@ -20,21 +20,27 @@ body {
 
 /* Applying mobile styles */
 @media (max-width: 767px) {
+ 
   .ant-steps {
     width: 100%;
     height: auto;
     display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
     
     
   }
 
   .ant-steps-item-title {
-    display: inline-block;
+    display: none;
     margin-right: 12px; /* Reset margin on mobile to stack titles vertically */
     margin-bottom: 8px; /* Add margin between stacked titles */
     visibility: hidden;
     
   }
-  
+  .ant-steps-item-title.ant-steps-item-title-active {
+    display: inline-block;
+    visibility: visible;
+  }
 }
 

@@ -221,10 +221,12 @@ function Enrollment() {
           > <div className="w-[100%]">
             <Steps
               current={currentStep}
-              responsive={true}
-              items={steps}
-              className="mb-5 md:mb-14  "
-            /></div>
+              responsive={false}
+              items={steps.map(step => ({ title: step.title }))}
+              className="mb-5 md:mb-14 "
+
+            />
+            </div>
 
             {steps[currentStep].content}
             

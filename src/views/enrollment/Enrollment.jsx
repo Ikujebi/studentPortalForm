@@ -112,7 +112,7 @@ function Enrollment() {
             Registration Form
           </h1>
         </header>
-        <div className=" mt-[7.23rem]">
+        <div className=" mt-[8rem]">
           
           <Form
             form={form}
@@ -120,7 +120,7 @@ function Enrollment() {
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
             onFinish={handleSubmit}
-            className="md:w-[90%] mx-auto mt-5 md:mt-14 flex flex-col items-center justify-center xl:w-[60%]"
+            className="md:w-[90%] mx-auto mt-10 md:mt-14 flex flex-col items-center justify-center xl:w-[60%]"
             fields={[
               {
                 name: "firstName",

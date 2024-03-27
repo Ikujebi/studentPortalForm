@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Col, DatePicker, Form, Input, Row, Select } from "antd";
+import  { useState, useEffect } from "react";
+import { Col, DatePicker, Form, Input, Row, Select,Spin } from "antd";
 import useSetField from "../../../custom-hooks/useSetField.js";
 import axios from "axios";
 
 function PersonalInfo({ state, setState }) {
   const { setRequest } = useSetField(setState);
   const [locationOptions, setLocationOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
   
-async function fetchOptions() {
-  try {
-    const response = await axios.get(import.meta.env.VITE_APP_SSMP_BACKEND_API +"lga");
-    return response.data.data;
-  } catch (error) {
-    console.error("Error fetching options:", error);
-    return [];
-  }
-}
+  useEffect(() => {
+    async function fetchOptions() {
+      try {
+        const response = await axios.get(import.meta.env.VITE_APP_SSMP_BACKEND_API +"lga");
+        setLocationOptions(response.data.data);
+      } catch (error) {
+        console.error("Error fetching options:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-useEffect(() => {
-  fetchOptions()
-  
-    .then((fetchedOption) => setLocationOptions(fetchedOption))
-    .catch((error) => console.error("Error setting location options:", error));
-}, []);
+    fetchOptions();
+  }, []);
 
   return (
     <Row gutter={16} className="md:w-[70%]">
+       {loading ? ( // Display spinner while loading
+        <Col span={24} style={{ textAlign: "center" }}>
+          <Spin size="large" />
+        </Col>
+      ) : (<>
       <Col xs={24} md={12}>
         <Form.Item
           label="First Name"
@@ -209,6 +213,8 @@ useEffect(() => {
         />
       </Form.Item>
       </Col>
+      </>
+      )}
     </Row>
   );
 }

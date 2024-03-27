@@ -24,7 +24,7 @@ const ResponseModal = ({ open, setOpen, message, description }) => {
           </Button>,
         ]}
       />
-    </Modal>
+    </Modal> 
   );
 };
 

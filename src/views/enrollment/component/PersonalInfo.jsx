@@ -182,17 +182,17 @@ function PersonalInfo({ state, setState }) {
           },
         ]}
       >
-        <Select
-          value={state.location}
-          onChange={(e) => setRequest("lga", e)}
-        >
-           {locationOptions.map((option) => (
-                <Select.Option key={option._id} value={option.name}>
-                  {option.name}
-                </Select.Option>
-              ))}
-          
-        </Select>
+         <Select
+    value={state.location}
+    onChange={(e) => setRequest("lga", e)}
+    loading={loading} 
+  >
+    {locationOptions.map((option) => (
+      <Select.Option key={option._id} value={option.name}>
+        {option.name}
+      </Select.Option>
+    ))}
+  </Select>
       </Form.Item>
       </Col>
       <Col xs={24} md={12}>

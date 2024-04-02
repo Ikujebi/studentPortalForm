@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, Steps, Spin } from "antd";
+import { Form, Button, Steps, Spin, message as antMessage } from "antd";
 import PersonalInfo from "./component/PersonalInfo";
 import EducationDetails from "./component/EducationDetails";
 import OtherDetails from "./component/OtherDetails";
@@ -30,7 +30,7 @@ function Enrollment() {
     instituitionAttended: "",
     yearOfGraduation: "",
     computerSkill: "",
-    softwareUsed: "",
+    softwareUsed: [],
     softwareTraining: "",
     applicationYouWillBuild: "",
     techStack: "",
@@ -79,6 +79,7 @@ function Enrollment() {
     setLoading(true);
     // const formattedDob = dayjs(formData.dob).format("YYYY-MM-DD");
     try {
+      console.log(formData);
       const response = await axios.post(
         import.meta.env.VITE_APP_SSMP_BACKEND_API + "enrollParticipants",
        
@@ -90,10 +91,14 @@ function Enrollment() {
       setCurrentStep(0);
       setOpen(true);
       setLoading(false);
+      console.log(formData);
+      antMessage.success("Submission successful");
+      console.log("Submission successful");
     } catch (error) {
       setOpen(true);
       setLoading(false);
-      setMessage(error);
+      setMessage(error.message);
+      console.error("Submission failed:", error);
     }
   };
 
@@ -222,8 +227,9 @@ function Enrollment() {
           > <div className="w-full">
             <Steps
               current={currentStep}
+              
               responsive={false}
-              items={steps.map(step => ({ title: step.title }))}
+              items={steps.map(step => ({ title: step.title , key: step.title}))}
               className="mb-5 md:mb-14 "
 
             />

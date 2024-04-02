@@ -28,7 +28,8 @@ function OtherDetails({state,setState}) {
         ]}
       >
         <Select
-          value={state?.techStack}
+        mode="multiple"
+        value={Array.isArray(state?.techStack) ? state.techStack : []}
           onChange={(e) => setRequest("techStack", e)}
         >
           <Select.Option value="frontend">Frontend</Select.Option>

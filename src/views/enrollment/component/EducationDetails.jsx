@@ -132,7 +132,8 @@ function EducationDetails({ state, setState }) {
           ]}
         >
           <Select
-            value={state?.softwareUsed}
+          mode="multiple"
+            value={Array.isArray(state?.softwareUsed) ? state.softwareUsed : []}
             onChange={(value) => setRequest("softwareUsed", value)}
           >
             <Select.Option value="microsoft">Microsoft Word</Select.Option>

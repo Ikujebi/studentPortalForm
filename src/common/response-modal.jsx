@@ -17,6 +17,7 @@ const ResponseModal = ({ open, setOpen, message, description }) => {
         extra={[
           <Button
             type="primary"
+           
             className="bg-[#0f4b93] px-14 flex items-center justify-center py-5 relative left-[50%] translate-x-[-50%]"
             onClick={() => window.location.reload()}
           >
